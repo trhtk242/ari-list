@@ -10,20 +10,19 @@ import {
   doc,
 } from "firebase/firestore";
 
-const productCollectionRef = collection(db, "products");
+const collectionName = "products";
+const productCollectionRef = collection(db, collectionName);
 class ProductDataService {
   addProducts = (newProduct) => {
     return addDoc(productCollectionRef, newProduct);
   };
 
   updateProduct = (id, updatedProduct) => {
-    const productDoc = doc(db, "products", id);
-    return updateDoc(productDoc, updatedProduct);
+    return updateDoc(doc(db, collectionName, id), updatedProduct);
   };
 
   deleteProduct = (id) => {
-    const productDoc = doc(db, "products", id);
-    return deleteDoc(productDoc);
+    return deleteDoc(doc(db,collectionName, id));
   };
 
   getAllProducts = () => {
@@ -31,8 +30,7 @@ class ProductDataService {
   };
 
   getProduct = (id) => {
-    const productDoc = doc(db, "products", id);
-    return getDoc(productDoc);
+    return getDoc(doc(db,collectionName, id));
   };
 }
 
